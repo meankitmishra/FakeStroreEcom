@@ -11,11 +11,11 @@ import java.util.List;
 
 @Service
 
-public class CategoryService implements ICategoryService {
+public class FakeStoreCategoryService implements ICategoryService {
 
     private ICategoryGateway categoryGateway;
 
-    public CategoryService(@Qualifier("fakeStoreRestTemplateCategoryGateway") ICategoryGateway _categoryGateway) {
+    public FakeStoreCategoryService(@Qualifier("fakeStoreRestTemplateCategoryGateway") ICategoryGateway _categoryGateway) {
         this.categoryGateway = _categoryGateway;
     }
 

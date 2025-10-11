@@ -3,10 +3,9 @@ package com.example.fakestoreecom.controllers;
 import com.example.fakestoreecom.dto.AllProductDTO;
 import com.example.fakestoreecom.dto.SingleProductDTO;
 import com.example.fakestoreecom.services.IProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public class ProductController {
 
     private IProductService iProductService;
 
-    public ProductController(IProductService _iProductService){
+    public ProductController(@Qualifier("productService") IProductService _iProductService){
         this.iProductService = _iProductService;
     }
 
@@ -27,7 +26,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public SingleProductDTO getProductById(@PathVariable int id) throws IOException{
-        return this.iProductService.getSingleProduct(id);
+    public ResponseEntity<SingleProductDTO> getProductById(@PathVariable Long id) throws IOException{
+        SingleProductDTO result = this.iProductService.getSingleProduct(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<SingleProductDTO> createProduct(@RequestBody SingleProductDTO productDTO) throws IOException{
+        SingleProductDTO result = this.iProductService.createProduct(productDTO);
+        return ResponseEntity.ok(result);
     }
 }

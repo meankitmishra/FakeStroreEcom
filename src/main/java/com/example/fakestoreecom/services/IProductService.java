@@ -9,5 +9,7 @@ import java.io.IOException;
 public interface IProductService {
     public AllProductDTO getAllProducts() throws IOException;
 
-    public SingleProductDTO getSingleProduct(int id) throws IOException;
+    public SingleProductDTO getSingleProduct(Long id) throws IOException;
+
+    public SingleProductDTO createProduct(SingleProductDTO dto) throws IOException;
 }

@@ -1,14 +1,15 @@
-package com.example.fakestoreecom.dto;
+package com.example.fakestoreecom.entity;
 
+import jakarta.persistence.Entity;
 import lombok.*;
 
-@Setter
+@Entity
 @Getter
-@Builder
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
-public class SingleProductDTO {
-    private long _id;
+@NoArgsConstructor
+@Builder
+public class Product extends BaseEntity{
     private String title;
     private boolean isNew;
     private String oldPrice;

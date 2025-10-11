@@ -1,47 +1,39 @@
 package com.example.fakestoreecom.services;
 
-
 import com.example.fakestoreecom.dto.AllProductDTO;
 import com.example.fakestoreecom.dto.SingleProductDTO;
-import com.example.fakestoreecom.gateway.IProductGateway;
-import com.example.fakestoreecom.utils.SearchByProductId;
+import com.example.fakestoreecom.entity.Product;
+import com.example.fakestoreecom.mappers.SingleProductMapper;
+import com.example.fakestoreecom.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-    private IProductGateway iProductGateway;
 
-    public ProductService(IProductGateway _iProductGateway) {
-        this.iProductGateway = _iProductGateway;
+    private ProductRepository productRepository;
+
+    public ProductService(ProductRepository _productRepository) {
+        this.productRepository = _productRepository;
     }
 
     @Override
-    public AllProductDTO getAllProducts() throws IOException {
-        System.out.println("getAllProducts from service");
-        return this.iProductGateway.getAllProducts();
+    public AllProductDTO getAllProducts() throws IOException{
+        return null;
     }
 
     @Override
-    public SingleProductDTO getSingleProduct(int id) throws IOException{
-        AllProductDTO allproductsResponse = this.iProductGateway.getAllProducts();
-        if(allproductsResponse == null) {
-            throw new IOException("getSingleProduct: product not found");
-        }
-        List<SingleProductDTO> allProducts = allproductsResponse.getData();
-        if(allProducts == null) {
-            throw new IOException("getSingleProduct: product not found");
-        }
-        allProducts.sort(Comparator.comparingInt(SingleProductDTO::get_id));
-        int index = SearchByProductId.searchProductById(allProducts, id);
-        if(index < 0) {
-            throw new IOException("getSingleProduct: product not found");
-        }else{
-            return allProducts.get(index);
-        }
+    public SingleProductDTO getSingleProduct(Long id) throws IOException{
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IOException("Product not found"));
+
+        return SingleProductMapper.toDTO(product);
     }
 
+    @Override
+    public SingleProductDTO createProduct(SingleProductDTO dto) throws IOException{
+        Product savedProduct = productRepository.save(SingleProductMapper.toEntity(dto));
+        return SingleProductMapper.toDTO(savedProduct);
+    }
 }

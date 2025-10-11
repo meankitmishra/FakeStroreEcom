@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class SearchByProductId {
-    public static int searchProductById(List<SingleProductDTO> allProducts , int productId){
+    public static int searchProductById(List<SingleProductDTO> allProducts , long productId){
         int left = 0;
         int right = allProducts.size();
         while(left <= right){
