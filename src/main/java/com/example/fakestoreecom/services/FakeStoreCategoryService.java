@@ -24,4 +24,14 @@ public class FakeStoreCategoryService implements ICategoryService {
         return categoryGateway.getAllCategories();
     }
 
+    @Override
+    public CategoryDTO createCategory(CategoryDTO dto) throws IOException {
+        return null;
+    }
+
+    @Override
+    public CategoryDTO getCategoryByName(String name) throws IOException {
+        return null;
+    }
+
 }

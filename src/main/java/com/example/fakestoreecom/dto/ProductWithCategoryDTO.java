@@ -2,12 +2,12 @@ package com.example.fakestoreecom.dto;
 
 import lombok.*;
 
-@Setter
 @Getter
-@Builder
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
-public class SingleProductDTO {
+@NoArgsConstructor
+@Builder
+public class ProductWithCategoryDTO {
     private long _id;
     private String title;
     private boolean isNew;
@@ -15,11 +15,12 @@ public class SingleProductDTO {
     private int newPrice;
     private double discountedPrice;
     private String description;
-    private long categoryId;
     private String type;
     private int stock;
     private String brand;
     private String[] size;
     private String image;
     private int rating;
+    private CategoryDTO category;
 }
+

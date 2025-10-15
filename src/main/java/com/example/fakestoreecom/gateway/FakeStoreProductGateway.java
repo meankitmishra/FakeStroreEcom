@@ -1,6 +1,7 @@
 package com.example.fakestoreecom.gateway;
 
 import com.example.fakestoreecom.dto.AllProductDTO;
+import com.example.fakestoreecom.exceptions.ProductNotFoundException;
 import com.example.fakestoreecom.gateway.api.FakeStoreProductApi;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +16,10 @@ public class FakeStoreProductGateway implements IProductGateway {
     }
 
     @Override
-    public AllProductDTO getAllProducts() throws IOException {
+    public AllProductDTO getAllProducts() throws IOException  {
         AllProductDTO response = this.fakeStoreProductApi.getAllFakeProducts().execute().body();
         if(response == null){
-            throw new IOException("Error getting all products");
+            throw new ProductNotFoundException("Error getting all products");
         }
         System.out.println("getAllProducts from gateway");
         return response;
